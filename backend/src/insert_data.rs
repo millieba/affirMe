@@ -1,14 +1,14 @@
-use mongodb::{bson::doc, options::ClientOptions, Client}; // Import required dependencies from the `mongodb` crate
-use serde::Serialize; // Import `Serialize` trait from the `serde` crate
-use std::error::Error; // Import `Error` trait from the `std` module
+use mongodb::{bson::doc, options::ClientOptions, Client};
+use serde::Serialize;
+use std::error::Error;
 
-#[derive(Debug, Serialize)] // Implement the `Serialize` trait for the `Affirmation` struct
+#[derive(Debug, Serialize)] // Implement the "Serialize" trait for the "Affirmation" struct, in order to convert it to a BSON document later
 struct Affirmation {
     text: String,
     tags: Vec<String>,
 }
 
-#[tokio::main] // Use the `tokio` runtime for asynchronous execution
+#[tokio::main] // Use the "tokio" runtime for asynchronous execution
 async fn main() -> Result<(), Box<dyn Error>> {
     let client_options = ClientOptions::parse("mongodb://localhost:27017").await?; // Parse client options for connecting to the MongoDB server
 
@@ -30,17 +30,17 @@ async fn main() -> Result<(), Box<dyn Error>> {
             tags: record
                 .get(1)
                 .unwrap()
-                .split(',')
-                .map(|tag| tag.trim().to_owned()) // Extract tags from the CSV record by splitting on commas and trimming whitespace
+                .split(',') // Extract tags from the CSV record by splitting on commas and trimming whitespace
+                .map(|tag| tag.trim().to_owned())
                 .collect(), // Collect the extracted tags into a vector
         };
 
-        let document = mongodb::bson::to_document(&affirmation)?; // Convert the `Affirmation` struct to a BSON document
+        let document = mongodb::bson::to_document(&affirmation)?; // Convert the "Affirmation" struct to a BSON document
 
         collection.insert_one(document, None).await?; // Insert the document into the "affirmations" collection
     }
 
-    println!("Data insertion completed successfully!"); // Print a success message
+    println!("😌🙌 Mission accomplished! Your affirmations have journeyed through the stars and landed safely in the database with cosmic precision!"); // Print a success message
 
-    return Ok(()); // Return `Ok` to indicate that the program completed successfully
+    return Ok(()); // Return "Ok" to indicate that the program completed successfully
 }

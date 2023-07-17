@@ -16,7 +16,3 @@ To run the project, start the backend first in one terminal window and then star
    - Note: The instructions assume the usage of `pnpm` as the package manager. If you prefer to use `npm`, you can replace `pnpm` with `npm`. If you don't have `pnpm` installed and want to use it, you can install it by running `npm install -g pnpm` in a terminal window.
 2. **Install dependencies:** Open a terminal window, navigate to the frontend folder, and run `pnpm i` to install the project dependencies listed in the `package.json` file.
 3. **Start the development server:** Once step 2 has completed successfully, run `pnpm run dev` in the terminal. This command will start the development server, and you can access the application by visiting [http://localhost:5173](http://localhost:5173) in your web browser.
-
-<br><br>
-
-<img src="./img/cat.png" width="60%">

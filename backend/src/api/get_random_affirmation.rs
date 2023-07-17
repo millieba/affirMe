@@ -1,8 +1,7 @@
-use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, web, HttpResponse, Responder};
 use futures::stream::StreamExt;
 use mongodb::{
     bson::{doc, Document},
-    options::ClientOptions,
     Client,
 };
 use rand::seq::SliceRandom;
@@ -15,7 +14,7 @@ struct Affirmation {
 }
 
 #[get("/affirmations/random")]
-async fn random_affirmation(client: web::Data<Client>) -> impl Responder {
+pub async fn random_affirmation(client: web::Data<Client>) -> impl Responder {
     let collection = client
         .database(&env::var("DATABASE_NAME").expect("DATABASE_NAME not set"))
         .collection::<Document>(
@@ -74,34 +73,5 @@ async fn random_affirmation(client: web::Data<Client>) -> impl Responder {
     // unwrap() is safe to use here because we know that the vector is not empty (we checked for that above)
     let random_affirmation = affirmations.choose(&mut rand::thread_rng()).unwrap();
     // Return the randomly selected affirmation as JSON
-    return HttpResponse::Ok().json(random_affirmation);
-}
-
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    dotenv::dotenv().ok(); // Load environment variables from .env file
-
-    let client_options = ClientOptions::parse("mongodb://localhost:27017")
-        .await
-        .expect("Failed to parse MongoDB client options");
-
-    let client = Client::with_options(client_options).expect("Failed to create MongoDB client");
-
-    println!("🎉 Connected to database successfully");
-
-    // Create a new instance of the Actix Web HttpServer:
-    let server = HttpServer::new(move || {
-        App::new() // Create a new instance of the Actix Web App
-            // Store a reference to the MongoDB client in the App data for sharing across handlers.
-            // This is to reuse the database connection for several requests, rather than creating a new connection for each request:
-            .app_data(web::Data::new(client.clone()))
-            // Register the random_affirmation handler function as a service to handle requests to the /affirmations/random route:
-            .service(random_affirmation)
-    })
-    .bind(("127.0.0.1", 8080))?; // Bind the server to the specified IP address and port
-
-    println!("🚀 Server ready at: http://127.0.0.1:8080/affirmations/random");
-    server.run().await?;
-    // We need to return an Ok(()) value here because the main() function is expected to return a Result
-    return Ok(());
+    HttpResponse::Ok().json(random_affirmation)
 }

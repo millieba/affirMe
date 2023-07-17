@@ -18,8 +18,8 @@ csv = "1.1.6"
 dotenv = "0.15.0"
 
 [[bin]]
-name = "backend"
-path = "src/main.rs"
+name = "server"
+path = "src/server.rs"
 
 [[bin]]
 name = "insert_data"

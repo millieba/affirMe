@@ -9,7 +9,7 @@ Start the backend first in one terminal window, then start the frontend in anoth
 2. **Start the MongoDB Server**: Run `mongod` in a terminal window.
 3. **Configure MongoDB connection**: The backend is designed to connect to a local MongoDB database. The default connection details, including the URI, database name, and collection name, are stored in the *.env* file provided. Verify that the values in the *.env* file match your local MongoDB setup.
 4. **Insert dataset**: In the backend folder, run `cargo run --bin insert_data` to insert the affirmations dataset into MongoDB.
-5. **Launch the web server**: After step 4, run `cargo run --bin backend` to start the web server on localhost, port 8080. Access the endpoint [http://localhost:8080/affirmations/random](http://localhost:8080/affirmations/random) for a random affirmation.
+5. **Launch the web server**: After step 4, run `cargo run --bin server` to start the web server on localhost, port 8080. Access the endpoint [http://localhost:8080/affirmations/random](http://localhost:8080/affirmations/random) for a random affirmation.
 
 ### 🍒 Frontend
 1. **Install Node.js**: Download Node.js from [https://nodejs.org](https://nodejs.org) and follow the installation instructions for your operating system.

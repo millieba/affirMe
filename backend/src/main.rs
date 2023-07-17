@@ -6,6 +6,7 @@ use mongodb::{
     Client,
 };
 use rand::seq::SliceRandom;
+use std::env;
 
 #[derive(Debug, serde::Deserialize, serde::Serialize)]
 struct Affirmation {
@@ -16,8 +17,10 @@ struct Affirmation {
 #[get("/affirmations/random")]
 async fn random_affirmation(client: web::Data<Client>) -> impl Responder {
     let collection = client
-        .database("affirMe")
-        .collection::<Document>("affirmations");
+        .database(&env::var("DATABASE_NAME").expect("DATABASE_NAME not set"))
+        .collection::<Document>(
+            &env::var("DATABASE_COLLECTION").expect("DATABASE_COLLECTION not set"),
+        );
 
     // affirmations is a vector of Affirmation structs, which we will populate with the documents from the database
     let affirmations = match collection.find(None, None).await {
@@ -76,6 +79,8 @@ async fn random_affirmation(client: web::Data<Client>) -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv::dotenv().ok(); // Load environment variables from .env file
+
     let client_options = ClientOptions::parse("mongodb://localhost:27017")
         .await
         .expect("Failed to parse MongoDB client options");

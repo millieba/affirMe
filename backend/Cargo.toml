@@ -7,3 +7,20 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
+futures = "0.3.16"
+mongodb = "2.1"
+rand = "0.8.4"
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.2.0", features = ["full"] }
+async-std = "1.10.0"
+bson = "1.0.0"
+csv = "1.1.6"
+dotenv = "0.15.0"
+
+[[bin]]
+name = "backend"
+path = "src/main.rs"
+
+[[bin]]
+name = "insert_data"
+path = "src/insert_data.rs"

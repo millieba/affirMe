@@ -4,5 +4,7 @@
 // The individual submodules can be accessed using the "use api::{module_name}" syntax.
 
 pub mod get_random_affirmation;
+pub mod get_all_affirmations;
 
 pub use get_random_affirmation::*;
+pub use get_all_affirmations::*;

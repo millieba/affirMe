@@ -3,6 +3,7 @@ use mongodb::{options::ClientOptions, Client};
 use std::env;
 
 mod api; // Import the "api" module
+mod models; // Import the "models" module
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -26,6 +27,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(client.clone()))
             // Register the random_affirmation handler function as a service to handle requests to the /affirmations/random route:
             .service(api::random_affirmation) // Use the "random_affirmation" handler function from our "api" module
+            .service(api::all_affirmations) // Use the "all_affirmations" handler function from our "api" module
     })
     .bind(("127.0.0.1", 8080))?; // Bind the server to the specified IP address and port
 

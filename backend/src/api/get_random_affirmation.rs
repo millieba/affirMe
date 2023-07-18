@@ -1,17 +1,9 @@
+use crate::models::Affirmation; // Import the Affirmation struct from the models module
 use actix_web::{get, web, HttpResponse, Responder};
 use futures::stream::StreamExt;
-use mongodb::{
-    bson::{doc, Document},
-    Client,
-};
+use mongodb::{bson::Document, Client};
 use rand::seq::SliceRandom;
 use std::env;
-
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
-struct Affirmation {
-    text: String,
-    tags: Vec<String>,
-}
 
 #[get("/affirmations/random")]
 pub async fn random_affirmation(client: web::Data<Client>) -> impl Responder {

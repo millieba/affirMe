@@ -1,4 +1,5 @@
 use actix_web::{web, App, HttpServer};
+use env_logger::Env;
 use mongodb::{options::ClientOptions, Client};
 use std::env;
 
@@ -8,6 +9,7 @@ mod models; // Import the "models" module
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok(); // Load environment variables from .env file
+    env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
 
     let database_uri = env::var("DATABASE_URI").expect("DATABASE_URI not set");
 
@@ -26,8 +28,8 @@ async fn main() -> std::io::Result<()> {
             // This is to reuse the database connection for several requests, rather than creating a new connection for each request:
             .app_data(web::Data::new(client.clone()))
             // Register the random_affirmation handler function as a service to handle requests to the /affirmations/random route:
-            .service(api::random_affirmation) // Use the "random_affirmation" handler function from our "api" module
-            .service(api::all_affirmations) // Use the "all_affirmations" handler function from our "api" module
+            .service(api::affirmations)
+            .service(api::random_affirmation)
     })
     .bind(("127.0.0.1", 8080))?; // Bind the server to the specified IP address and port
 

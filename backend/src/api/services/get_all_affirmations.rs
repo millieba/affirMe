@@ -40,9 +40,7 @@ pub async fn get_all_affirmations(
         .await;
 
     if affirmations.is_empty() {
-        return Err(
-            HttpResponse::InternalServerError().body("No affirmations found in the database")
-        );
+        return Err(HttpResponse::NotFound().body("No affirmations found in the database"));
     }
 
     return Ok(affirmations);

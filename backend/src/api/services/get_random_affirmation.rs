@@ -45,15 +45,14 @@ pub async fn get_random_affirmation(
         }
         // Handle failed find operation:
         Err(err) => {
+            // TODO: Fix this error handling, looks goofy
             log::error!("Error: {}", err);
             return Err(HttpResponse::InternalServerError().body(format!("Error: {}", err)));
         }
     };
 
     if affirmations.is_empty() {
-        return Err(
-            HttpResponse::InternalServerError().body("No affirmations found in the database")
-        );
+        return Err(HttpResponse::NotFound().body("No affirmations found in the database"));
     }
 
     // Select a random element from the vector using the rand::thread_rng() random number generator

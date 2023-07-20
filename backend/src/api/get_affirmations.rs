@@ -11,8 +11,10 @@ pub struct QueryParams {
     search_term: Option<String>,
 }
 
+// This handler function will be called when a GET request is made to the /affirmations route.
+// It uses match expressions to determine which service function to call based on the query parameters provided.
 #[get("/affirmations")]
-pub async fn affirmations(
+pub async fn get_affirmations(
     client: web::Data<Client>,
     query: web::Query<QueryParams>,
 ) -> impl Responder {
@@ -30,10 +32,8 @@ pub async fn affirmations(
         // If only page number and items per page are provided, call get_paginated_affirmations handler
         (Some(page), Some(items), None) => {
             match get_paginated_affirmations(&collection, page, items).await {
-                Ok(affirmations) => return HttpResponse::Ok().json(affirmations),
-                Err(err) => {
-                    return HttpResponse::InternalServerError().body(format!("Error: {:?}", err))
-                }
+                Ok(affirmations) => HttpResponse::Ok().json(affirmations),
+                Err(err) => err, // Propagate the error directly as a return value
             }
         }
         // If only search term is provided, call get_filtered_affirmations handler
@@ -43,10 +43,8 @@ pub async fn affirmations(
         // }
         // If no query parameters are provided, call get_all_affirmations handler
         (None, None, None) => match get_all_affirmations(&collection).await {
-            Ok(affirmations) => return HttpResponse::Ok().json(affirmations),
-            Err(err) => {
-                return HttpResponse::InternalServerError().body(format!("Error: {:?}", err))
-            }
+            Ok(affirmations) => HttpResponse::Ok().json(affirmations),
+            Err(err) => err, // Propagate the error directly as a return value
         },
         // Handle invalid request
         _ => return HttpResponse::BadRequest().body("Invalid request"),

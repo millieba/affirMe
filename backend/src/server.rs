@@ -28,8 +28,8 @@ async fn main() -> std::io::Result<()> {
             // This is to reuse the database connection for several requests, rather than creating a new connection for each request:
             .app_data(web::Data::new(client.clone()))
             // Register the random_affirmation handler function as a service to handle requests to the /affirmations/random route:
-            .service(api::affirmations)
-            .service(api::random_affirmation)
+            .service(api::get_affirmations)
+            .service(api::get_random)
     })
     .bind(("127.0.0.1", 8080))?; // Bind the server to the specified IP address and port
 

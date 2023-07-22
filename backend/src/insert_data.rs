@@ -1,13 +1,9 @@
 use mongodb::{bson::doc, options::ClientOptions, Client};
-use serde::Serialize;
 use std::env;
 use std::error::Error;
-
-#[derive(Debug, Serialize)] // Implement the "Serialize" trait for the "Affirmation" struct, in order to convert it to a BSON document later
-struct Affirmation {
-    text: String,
-    tags: Vec<String>,
-}
+// Import the Affirmation struct from models.rs
+mod models;
+use crate::models::Affirmation;
 
 #[tokio::main] // Use the "tokio" runtime for asynchronous execution
 async fn main() -> Result<(), Box<dyn Error>> {

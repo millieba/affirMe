@@ -1,4 +1,4 @@
-use crate::api::{get_all_affirmations, get_paginated_affirmations};
+use crate::api::{get_all_affirmations, get_filtered_affirmations, get_paginated_affirmations};
 use actix_web::{get, web, HttpResponse, Responder};
 use mongodb::{bson::Document, Client};
 use serde::Deserialize;
@@ -37,10 +37,12 @@ pub async fn get_affirmations(
             }
         }
         // If only search term is provided, call get_filtered_affirmations handler
-        // (None, None, Some(term)) => {
-        //     // Call the get_filtered_affirmations handler
-        //     get_filtered_affirmations::handle(term).await
-        // }
+        (None, None, Some(term)) => {
+            match get_filtered_affirmations(&collection, term).await {
+                Ok(affirmations) => HttpResponse::Ok().json(affirmations),
+                Err(err) => err, // Propagate the error directly as a return value
+            }
+        }
         // If no query parameters are provided, call get_all_affirmations handler
         (None, None, None) => match get_all_affirmations(&collection).await {
             Ok(affirmations) => HttpResponse::Ok().json(affirmations),

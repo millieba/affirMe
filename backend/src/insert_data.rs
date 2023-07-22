@@ -1,4 +1,4 @@
-use mongodb::{bson::doc, options::ClientOptions, Client};
+use mongodb::{bson::doc, options::ClientOptions, Client, IndexModel};
 use std::env;
 use std::error::Error;
 // Import the Affirmation struct from models.rs
@@ -18,6 +18,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let db = client.database(&db_name); // Access the specified database
     let collection = db.collection::<mongodb::bson::Document>(&collection_name); // Access the specified collection within the database
+
+    // Create a text index on the "text" field
+    let index_model = IndexModel::builder().keys(doc! { "text": "text" }).build();
+    collection.create_index(index_model, None).await?;
 
     collection.delete_many(doc! {}, None).await?; // Delete any existing documents in the collection
 

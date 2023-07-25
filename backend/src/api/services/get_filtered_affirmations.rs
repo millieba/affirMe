@@ -8,15 +8,37 @@ use mongodb::{
 
 pub async fn get_filtered_affirmations(
     collection: &Collection<Document>,
-    search_term: String,
+    search: String,
+    tags: String,
 ) -> Result<Vec<Affirmation>, HttpResponse> {
-    let regex_pattern = format!(r".*{}.*", regex::escape(&search_term));
-    let filter = doc! {
-        "text": {
-            "$regex": regex_pattern,
-            "$options": "i",
+    let mut filter = doc! {
+        "text": { // Create a regex filter for the "text" field
+            "$regex": search.split_whitespace() // Split the search string into individual words
+                // For each word, create a case insensitive, "(?i)", regex pattern that matches the word anywhere in the "text" field
+                // Escape any special characters to prevent unexpected regex behaviour
+                .map(|word| format!(r"(?i).*{}.*", regex::escape(word)))
+                .collect::<Vec<String>>() // Collect the regex pattterns into a vector of strings to be joined together
+                .join(""), // Join the regex patterns together to create the final regex pattern for the search term
         },
     };
+
+    // If the tags parameter is not empty, create a filter for the "tags" field too
+    if !tags.is_empty() {
+        // Split the tags into individual tags
+        let tag_list: Vec<String> = tags.split(',').map(|tag| tag.trim().to_owned()).collect();
+
+        // Combine the search term and tags filters, so that the affirmations must match both filters
+        filter = doc! {
+            "$and": [
+                filter,
+                doc! {
+                    "tags": {
+                        "$in": tag_list
+                    }
+                },
+            ]
+        };
+    }
 
     let cursor = match collection.find(filter, None).await {
         Ok(cursor) => cursor,

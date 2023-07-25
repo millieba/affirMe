@@ -5,8 +5,10 @@
 
 pub mod get_random;
 pub mod get_affirmations;
+pub mod get_tags;
 pub mod services;
 
 pub use get_random::*;
 pub use get_affirmations::*;
+pub use get_tags::*;
 pub use services::*;

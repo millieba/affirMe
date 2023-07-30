@@ -30,6 +30,7 @@ async fn main() -> std::io::Result<()> {
             // Register the random_affirmation handler function as a service to handle requests to the /affirmations/random route:
             .service(api::get_affirmations)
             .service(api::get_random)
+            .service(api::get_tags)
     })
     .bind(("127.0.0.1", 8080))?; // Bind the server to the specified IP address and port
 

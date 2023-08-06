@@ -1,0 +1,71 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100"
+    height="100"
+    viewBox="0 0 100 100"
+>
+    <!-- Big blue circle with reversed gradient -->
+    <defs>
+        <radialGradient
+            id="blueGradient"
+            cx="50%"
+            cy="50%"
+            r="50%"
+            fx="50%"
+            fy="50%"
+        >
+            <stop offset="0%" stop-color="#777fff" />
+            <stop offset="100%" stop-color="#404bbb" />
+        </radialGradient>
+    </defs>
+    <circle cx="20" cy="20" r="20" fill="url(#blueGradient)" />
+
+    <!-- Small yellow circle with gradient -->
+    <defs>
+        <radialGradient
+            id="yellowGradient"
+            cx="50%"
+            cy="50%"
+            r="60%"
+            fx="60%"
+            fy="60%"
+        >
+            <stop offset="0%" stop-color="#f19060" />
+            <stop offset="100%" stop-color="#ffba50" />
+        </radialGradient>
+    </defs>
+    <circle cx="10" cy="30" r="10" fill="url(#yellowGradient)" />
+
+    <!-- Inner white circle -->
+    <circle cx="10" cy="30" r="5" fill="#ffffff" />
+
+    <!-- Additional circles and ovals -->
+    <circle cx="25" cy="32" r="3" fill="#f19060" />
+    <circle cx="20" cy="20" r="2" fill="#ffba50" />
+    <circle cx="17" cy="10" r="3" fill="#f19060" />
+    <circle cx="50" cy="25" r="3" fill="#ffba50" />
+    <ellipse
+        cx="35"
+        cy="5"
+        rx="6"
+        ry="3"
+        fill="#ffba50"
+        transform="rotate(15 35 5)"
+    />
+    <ellipse
+        cx="35"
+        cy="20"
+        rx="2"
+        ry="6"
+        fill="#f19060"
+        transform="rotate(60 35 20)"
+    />
+    <ellipse
+        cx="50"
+        cy="10"
+        rx="3"
+        ry="7"
+        fill="#f19060"
+        transform="rotate(40 50 10)"
+    />
+</svg>

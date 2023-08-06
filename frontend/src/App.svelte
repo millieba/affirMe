@@ -1,13 +1,10 @@
 <script lang="ts">
-  import Counter from "./lib/Counter.svelte";
+  import Card from "./lib/components/atoms/Card.svelte";
+  import Header from "./lib/components/molecules/Header.svelte";
 </script>
 
-<div class="bg-red-700">
-  <Counter />
-</div>
+<Header />
 
-<style global lang="postcss">
-  @tailwind utilities;
-  @tailwind components;
-  @tailwind base;
-</style>
+<div class="w-1/2 m-auto pt-12">
+  <Card />
+</div>

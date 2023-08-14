@@ -5,6 +5,6 @@
 
 <Header />
 
-<div class="mx-auto pt-12 px-12">
+<div class="mx-auto pt-12 w-5/6">
   <CardGrid />
 </div>

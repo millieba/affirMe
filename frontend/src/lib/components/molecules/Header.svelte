@@ -45,6 +45,6 @@
 
     <!-- Try Again Icon, temporary solution -->
     <div class="px-2">
-        <Button buttonText="&#10227;" onClick={fetchNewAffirmation} />
+        <Button buttonText="↺" onClick={fetchNewAffirmation} />
     </div>
 </div>

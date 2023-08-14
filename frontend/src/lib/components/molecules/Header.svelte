@@ -5,6 +5,7 @@
         type Affirmation,
     } from "../../services/affirmationService";
     import Logo from "../atoms/Logo.svelte";
+    import Button from "../atoms/Button.svelte";
 
     let affirmation: Affirmation | null = null;
     let error: string | null = null;
@@ -24,29 +25,26 @@
     });
 </script>
 
-<div class="flex bg-[#777fff] pt-2">
+<div class="flex bg-gradient-to-t from-[#1c0644] to-[#160535] pt-3 pb-2">
     <!-- Logo -->
-    <div class="w-8 h-8 pl-1 mr-8">
+    <div class="w-8 h-8 pl-2 mr-6">
         <Logo />
     </div>
 
     <!-- Title and Affirmation -->
-    <div class="flex flex-grow items-center text-white">
+    <div class="flex flex-grow items-center text-[#e5eeff]">
         <span class="font-serif">affir</span>
         <span class="font-serif font-bold">Me</span>
 
         {#if affirmation}
-            <p class="ml-2 text-sm">{" ~ " + affirmation.text}</p>
+            <p class="ml-2 text-sm font-light">{" ~ " + affirmation.text}</p>
         {:else}
             <p class="ml-2" />
         {/if}
     </div>
 
     <!-- Try Again Icon, temporary solution -->
-    <button
-        class="m-2 pl-2 pr-2 pb-1 rounded-full hover:bg-[#f19060] bg-[#f19f60]"
-        on:click={fetchNewAffirmation}
-    >
-        <span class="text-white text-lg">&#10227;</span>
-    </button>
+    <div class="px-2">
+        <Button buttonText="&#10227;" onClick={fetchNewAffirmation} />
+    </div>
 </div>

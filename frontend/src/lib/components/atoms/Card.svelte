@@ -1,43 +1,19 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import {
-        fetchRandomAffirmation,
-        type Affirmation,
-    } from "../../services/affirmationService";
+    import Tag from "./Tag.svelte";
 
-    let affirmation: Affirmation | null = null;
-    let error: string | null = null;
-
-    async function fetchNewAffirmation() {
-        try {
-            affirmation = await fetchRandomAffirmation();
-            error = null;
-        } catch (err) {
-            affirmation = null;
-            error = "Failed to fetch affirmation. Please try again later.";
-        }
-    }
-
-    onMount(() => {
-        fetchNewAffirmation();
-    });
+    export let affirmationText: string;
+    export let tags: string[] = [];
 </script>
 
-<!-- Display the card component -->
-<div class="bg-white rounded-lg shadow-lg p-4">
-    {#if error}
-        <p class="text-red-600">{error}</p>
-    {:else if affirmation}
-        <p class="text-lg font-semibold mb-4">Your Affirmation</p>
-        <p class="italic">{affirmation.text}</p>
-    {:else}
-        <p class="text-gray-500">Loading...</p>
+<div
+    class="bg-gradient-to-b from-[#350a80] to-[#1d0646] rounded-xl shadow-lg pb-4 px-3 pt-2"
+>
+    {#if tags.length > 0}
+        <p class="pb-2">
+            {#each tags as tag}
+                <Tag tagName={tag} />
+            {/each}
+        </p>
     {/if}
-
-    <button
-        class="mt-4 px-4 py-2 hover:bg-[#f19060] bg-[#f19f60] text-white rounded-full shadow-[#404bbb]"
-        on:click={fetchNewAffirmation}
-    >
-        Get Another Affirmation
-    </button>
+    <p class="text-[#ffffff] font-thin">{affirmationText}</p>
 </div>

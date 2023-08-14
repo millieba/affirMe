@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Card from "./lib/components/atoms/Card.svelte";
   import Header from "./lib/components/molecules/Header.svelte";
+  import CardGrid from "./lib/components/molecules/CardGrid.svelte";
 </script>
 
 <Header />
 
-<div class="w-1/2 m-auto pt-12">
-  <Card />
+<div class="mx-auto pt-12 px-12">
+  <CardGrid />
 </div>

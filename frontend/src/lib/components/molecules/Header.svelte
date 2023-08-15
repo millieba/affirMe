@@ -25,9 +25,9 @@
     });
 </script>
 
-<div class="flex bg-gradient-to-t from-[#1c0644] to-[#160535] pt-3 pb-2">
+<div class="flex bg-gradient-to-t from-[#1c0644] to-[#160535] items-center">
     <!-- Logo -->
-    <div class="w-8 h-8 pl-2 mr-6">
+    <div class="w-16 pr-2">
         <Logo />
     </div>
 
@@ -43,7 +43,7 @@
         {/if}
     </div>
 
-    <!-- Try Again Icon, temporary solution -->
+    <!-- Try Again Icon for fetching a new random affirmation, icon is temporary -->
     <div class="px-2">
         <Button buttonText="↺" onClick={fetchNewAffirmation} />
     </div>

@@ -9,6 +9,7 @@
 
     let affirmation: Affirmation | null = null;
     let error: string | null = null;
+    let isHovering = false;
 
     async function fetchNewAffirmation() {
         try {
@@ -43,8 +44,12 @@
         {/if}
     </div>
 
-    <!-- Try Again Icon for fetching a new random affirmation, icon is temporary -->
+    <!-- Try Again Button for fetching a new random affirmation -->
     <div class="px-2">
-        <Button buttonText="↺" onClick={fetchNewAffirmation} />
+        <Button
+            buttonText="↺"
+            tooltipText="Get new affirmation"
+            onClick={fetchNewAffirmation}
+        />
     </div>
 </div>

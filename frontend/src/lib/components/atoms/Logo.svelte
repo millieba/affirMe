@@ -1,11 +1,16 @@
 <script>
+    // To hinder the animation from playing on page load
+    // We create a separate variable to control whether the animation should play or not
+    let playAnimation = false;
     let isHovered = false;
 
     function handleHover() {
+        playAnimation = true;
         isHovered = true;
     }
 
     function handleMouseLeave() {
+        playAnimation = true;
         isHovered = false;
     }
 </script>
@@ -72,7 +77,8 @@
             cy="35%"
             r="10"
             fill="url(#yellowGradient)"
-            class:animateHover={isHovered}
+            class:animateHover={isHovered && playAnimation}
+            class:animateHoverReverse={!isHovered && playAnimation}
         />
 
         <!-- Inner white circle -->
@@ -81,7 +87,8 @@
             cy="36%"
             r="4"
             fill="#ffffff"
-            class:animateHover={isHovered}
+            class:animateHover={isHovered && playAnimation}
+            class:animateHoverReverse={!isHovered && playAnimation}
         />
 
         <!-- Small white oval -->
@@ -92,7 +99,8 @@
             ry="2"
             fill="#ffffff"
             transform="rotate(30 25 25)"
-            class:animateHover={isHovered}
+            class:animateHover={isHovered && playAnimation}
+            class:animateHoverReverse={!isHovered && playAnimation}
         />
     </svg>
 </div>
@@ -102,12 +110,25 @@
         animation: growCircle 0.3s ease-in-out forwards;
     }
 
+    .animateHoverReverse {
+        animation: shrinkCircle 0.3s ease-in-out forwards;
+    }
+
     @keyframes growCircle {
         0% {
             transform: scale(1);
         }
         100% {
             transform: scale(1.1);
+        }
+    }
+
+    @keyframes shrinkCircle {
+        0% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
         }
     }
 </style>

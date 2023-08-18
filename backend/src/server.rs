@@ -26,8 +26,9 @@ async fn main() -> std::io::Result<()> {
     let server = HttpServer::new(move || {
         App::new() // Create a new instance of the Actix Web App
             .wrap(
-                // Add the CORS middleware to the app
-                Cors::default().allowed_origin("http://127.0.0.1:5173"), // Allow requests from http://localhost:5173 (our frontend)
+                Cors::default()
+                    .allowed_origin("http://127.0.0.1:5173")
+                    .allowed_origin("http://localhost:5173"),
             )
             // Store a reference to the MongoDB client in the App data for sharing across handlers.
             // This is to reuse the database connection for several requests, rather than creating a new connection for each request:

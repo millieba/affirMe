@@ -9,8 +9,6 @@
     }
 </script>
 
-<div
-    class="inline-flex text-xs font-light items-center rounded-full text-[#ffffff]"
->
+<div class="inline-flex text-xs font-light items-center rounded-full">
     <Button buttonText={tagName} onClick={toggleActive} />
 </div>

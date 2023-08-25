@@ -6,7 +6,7 @@
 </script>
 
 <div
-    class="bg-gradient-to-b from-[#350a80] to-[#1d0646] rounded-xl shadow-lg pb-4 px-3 pt-2"
+    class="bg-gradient-to-b from-m1 to-m2 rounded-xl shadow-lg pb-4 px-3 pt-2"
 >
     {#if tags.length > 0}
         <p class="pb-2">
@@ -15,5 +15,5 @@
             {/each}
         </p>
     {/if}
-    <p class="text-[#ffffff] font-thin">{affirmationText}</p>
+    <p class="text-t1 font-thin">{affirmationText}</p>
 </div>

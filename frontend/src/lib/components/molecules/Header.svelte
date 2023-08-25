@@ -26,14 +26,14 @@
     });
 </script>
 
-<div class="flex bg-gradient-to-t from-[#1c0644] to-[#160535] items-center">
+<div class="flex bg-gradient-to-t from-m3 to-m4 items-center">
     <!-- Logo -->
     <div class="w-16 pr-2">
         <Logo />
     </div>
 
     <!-- Title and Affirmation -->
-    <div class="flex flex-grow items-center text-[#e5eeff]">
+    <div class="flex flex-grow items-center text-t1">
         <span class="font-serif">affir</span>
         <span class="font-serif font-bold">Me</span>
 

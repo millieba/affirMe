@@ -33,37 +33,38 @@
         }
     }
 
-    const DropdownIcon = ({ isOpen }: { isOpen: boolean }) => {
-        return `
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="${isOpen ? "rotate-180" : ""}"
-            >
-                <path
-                    d="M7 10L12 15L17 10H7Z"
-                    fill="currentColor"
-                />
-            </svg>
-        `;
-    };
+    const DropdownIcon = ({ isOpen }: { isOpen: boolean }) => `
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="${isOpen ? "" : "rotate-180"}"
+        >
+            <path
+                d="M7 15L12 10L17 15"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    `;
 </script>
 
-<div class="relative inline-block text-left">
+<div class="relative inline-block">
     <div class="w-40">
         <button
             type="button"
-            class="inline-flex rounded-lg px-4 py-2 text-white bg-b1 hover:bg-b1-hover w-40"
+            class="flex items-center justify-between w-full rounded-lg px-3 py-2 text-white bg-b1 hover:bg-b1-hover"
             id="options-menu"
             aria-haspopup="true"
             aria-expanded={dropdownOpen}
             on:click={toggleDropdown}
         >
-            Filter on Tags
-            <span class="ml-2">
+            <span>Filter on Tags</span>
+            <span class="ml-2 pt-0.5">
                 {@html DropdownIcon({ isOpen: dropdownOpen })}
             </span>
         </button>

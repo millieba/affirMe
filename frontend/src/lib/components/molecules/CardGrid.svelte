@@ -12,7 +12,8 @@
     export let totalDocuments: number;
     export let isLoading: boolean;
 
-    let isScrolledDown = false; // To track if user has scrolled down
+    let isScrolledDown: boolean = false;
+    let errorMessage: string = "";
 
     onMount(() => {
         window.addEventListener("scroll", handleScroll);
@@ -28,13 +29,24 @@
             behavior: "smooth",
         });
     }
+
+    $: errorMessage =
+        affirmations.length === 0 && !isLoading
+            ? "Sorry, could not load affirmations. Check your internet connection and try again later."
+            : "";
 </script>
+
+{#if errorMessage}
+    <p class="text-t1 mt-10 bg-a4 p-3 rounded-lg">{errorMessage}</p>
+{/if}
 
 <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-12"
 >
     {#each affirmations as affirmation}
-        <Card affirmationText={affirmation.text} tags={affirmation.tags} />
+        {#if !errorMessage}
+            <Card affirmationText={affirmation.text} tags={affirmation.tags} />
+        {/if}
     {/each}
     {#if isLoading}
         {#each Array(itemsPerPage) as _, index}

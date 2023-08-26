@@ -2,14 +2,14 @@
     import { onMount } from "svelte";
     import { fetchDropdownOptions } from "../../services/affirmationService";
 
+    export let selectedOptions: string[];
+
     let options: string[] = [];
-    let selectedOptions: string[] = [];
     let dropdownOpen = false;
 
     onMount(async () => {
         options = await fetchDropdownOptions();
         selectAllOptions();
-        console.log(selectedOptions);
     });
 
     function toggleOption(option: string) {
@@ -18,7 +18,6 @@
         } else {
             selectedOptions = [...selectedOptions, option];
         }
-        console.log(selectedOptions);
     }
 
     function toggleDropdown() {

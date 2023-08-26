@@ -32,8 +32,13 @@ export async function fetchDropdownOptions(): Promise<string[]> {
     return response.json();
 }
 
-export async function fetchAffirmations(searchInput: string, pageNumber: number, itemsPerPage: number, tags: string[]): Promise<PaginatedAffirmations> {
-    const response = await fetch(`http://localhost:8080/affirmations/search?search_input=${searchInput}&page_number=${pageNumber}&items_per_page=${itemsPerPage}&tags=${tags}`);
+export async function fetchAffirmations(searchInput: string, pageNumber: number, itemsPerPage: number, tags?: string[]): Promise<PaginatedAffirmations> {
+    // if tags are provided, parse them to a comma separated string
+    let tagString = '';
+    if (tags) {
+        tagString = tags.join(',');
+    }
+    const response = await fetch(`http://localhost:8080/affirmations?search=${searchInput}&page_number=${pageNumber}&items_per_page=${itemsPerPage}&tags=${tagString}`);
     if (!response.ok) {
         throw new Error('Failed to fetch affirmation');
     }

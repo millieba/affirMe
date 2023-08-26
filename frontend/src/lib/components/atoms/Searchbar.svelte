@@ -1,11 +1,11 @@
 <script lang="ts">
-    export let placeholder: string = "Search";
-    export let userInput: string = "";
+    export let userInput: string;
+
+    let placeholder: string = "Search";
 
     function handleInput(event: Event) {
         const target = event.target as HTMLInputElement;
         userInput = target.value;
-        console.log(userInput);
     }
 </script>
 

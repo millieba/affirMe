@@ -26,7 +26,7 @@
     });
 </script>
 
-<div class="flex bg-gradient-to-t from-m3 to-m4 items-center">
+<header class="flex bg-gradient-to-t from-m3 to-m4 items-center">
     <!-- Logo -->
     <div class="w-16 pr-2">
         <Logo />
@@ -52,4 +52,4 @@
             onClick={fetchNewAffirmation}
         />
     </div>
-</div>
+</header>

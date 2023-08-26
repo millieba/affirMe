@@ -53,7 +53,7 @@
     `;
 </script>
 
-<div class="relative inline-block">
+<div class="relative inline-block pl-2">
     <div class="w-40">
         <button
             type="button"
@@ -64,7 +64,7 @@
             on:click={toggleDropdown}
         >
             <span>Filter on Tags</span>
-            <span class="ml-2 pt-0.5">
+            <span class="ml-2">
                 {@html DropdownIcon({ isOpen: dropdownOpen })}
             </span>
         </button>

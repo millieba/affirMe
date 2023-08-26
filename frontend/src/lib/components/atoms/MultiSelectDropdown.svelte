@@ -53,11 +53,11 @@
     `;
 </script>
 
-<div class="relative inline-block pl-2">
+<div class="relative inline-block pl-2 text-sm">
     <div class="w-40">
         <button
             type="button"
-            class="flex items-center justify-between w-full rounded-lg px-3 py-2 text-white bg-b1 hover:bg-b1-hover"
+            class="flex items-center justify-between w-full rounded-lg px-3 py-1.5 text-white bg-b1 hover:bg-b1-hover"
             id="options-menu"
             aria-haspopup="true"
             aria-expanded={dropdownOpen}

@@ -7,9 +7,9 @@
 
 <Header />
 
-<main class="mx-auto pt-10 w-5/6">
-  <h1 class="text-2xl text-t1 font-light mb-8">Affirmations</h1>
-  <div class="flex items-center justify-between mb-4">
+<main class="mx-auto pt-4 w-5/6">
+  <h1 class="text-2xl text-t1 font-light mb-6">Affirmations</h1>
+  <div class="flex items-center justify-between mb-5">
     <Searchbar />
     <MultiSelectDropdown />
   </div>

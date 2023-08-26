@@ -22,7 +22,9 @@ export default {
 
         // Accent colours
         'a1': '#12022e', // Dark, dark blue
-        'a2': '#7d7d7d' // Grey
+        'a2': '#7d7d7d', // Grey
+        'a3': '#ffba50ff', // Yellow
+        'a4': '#9b4293' // Purple
       },
     },
   },

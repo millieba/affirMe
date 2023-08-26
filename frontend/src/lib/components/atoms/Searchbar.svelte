@@ -9,9 +9,10 @@
     }
 </script>
 
-<div class="relative w-72">
+<div class="relative w-2/6">
     <input
         type="text"
+        id="search"
         class="w-full rounded-lg px-10 py-2 text-white bg-b1 hover:bg-b1-hover focus:outline-none placeholder-white"
         {placeholder}
         value={userInput}

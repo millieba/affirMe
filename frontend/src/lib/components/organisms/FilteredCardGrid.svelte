@@ -19,13 +19,11 @@
   async function fetchFilteredAffirmations() {
     isLoading = true;
 
-    if (
+    currentPage =
       (currentPage !== 1 && prevSearchInput !== searchInput) ||
       prevSelectedTags !== selectedTags
-    ) {
-      // Reset currentPage only if searchInput or selectedTags changed
-      currentPage = 1;
-    }
+        ? 1 // Reset currentPage only if searchInput or selectedTags changed
+        : currentPage;
 
     try {
       const response = await fetchAffirmations(
@@ -44,7 +42,7 @@
         prevSelectedTags = selectedTags;
         affirmations = response.affirmations; // Replace affirmations only if searchInput or selectedTags changed
       } else {
-        affirmations = [...affirmations, ...response.affirmations];
+        affirmations = [...affirmations, ...response.affirmations]; // Add new affirmations to existing ones if searchInput or selectedTags did not change
       }
 
       totalDocuments = response.total_documents;
@@ -56,20 +54,20 @@
   }
 
   $: {
-    searchInput, selectedTags, currentPage;
-    fetchFilteredAffirmations();
+    // Trigger fetchFilteredAffirmations() when searchInput, selectedTags or currentPage changes
+    searchInput, selectedTags, currentPage, fetchFilteredAffirmations();
   }
 </script>
 
 <h1 class="text-2xl text-t1 font-light mb-6">Affirmations</h1>
 <div class="flex items-center justify-between mb-5">
-  <Searchbar bind:userInput={searchInput} />
+  <Searchbar bind:searchInput />
   <MultiSelectDropdown bind:selectedOptions={selectedTags} />
 </div>
 <CardGrid
   {affirmations}
   bind:currentPage
-  bind:totalDocuments
-  bind:isLoading
-  bind:itemsPerPage
+  {totalDocuments}
+  {isLoading}
+  {itemsPerPage}
 />

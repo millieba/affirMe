@@ -1,11 +1,11 @@
 <script lang="ts">
-    export let userInput: string;
+    export let searchInput: string;
 
     let placeholder: string = "Search";
 
     function handleInput(event: Event) {
         const target = event.target as HTMLInputElement;
-        userInput = target.value;
+        searchInput = target.value;
     }
 </script>
 
@@ -15,7 +15,7 @@
         id="search"
         class="w-full rounded-lg px-10 py-2 bg-b1 hover:bg-b1-hover focus:outline-none placeholder-white"
         {placeholder}
-        value={userInput}
+        value={searchInput}
         on:input={handleInput}
     />
     <div class="absolute inset-y-0 left-0 flex items-center pl-3">

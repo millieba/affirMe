@@ -2,11 +2,11 @@ export interface Affirmation {
     text: string;
     tags: string[];
 }
+
 export interface PaginatedAffirmations {
     affirmations: Affirmation[];
     total_documents: number;
 }
-
 
 export async function fetchRandomAffirmation(): Promise<Affirmation> {
     const response = await fetch('http://localhost:8080/affirmations/random');
@@ -33,14 +33,12 @@ export async function fetchDropdownOptions(): Promise<string[]> {
 }
 
 export async function fetchAffirmations(searchInput: string, pageNumber: number, itemsPerPage: number, tags?: string[]): Promise<PaginatedAffirmations> {
-    // if tags are provided, parse them to a comma separated string
-    let tagString = '';
-    if (tags) {
-        tagString = tags.join(',');
-    }
+    const tagString = tags ? tags.join(',') : ''; // If tags are provided, parse them to a comma separated string
     const response = await fetch(`http://localhost:8080/affirmations?search=${searchInput}&page_number=${pageNumber}&items_per_page=${itemsPerPage}&tags=${tagString}`);
+
     if (!response.ok) {
-        throw new Error('Failed to fetch affirmation');
-    }
+        throw new Error('Failed to fetch affirmations');
+    };
     return response.json();
 }
+

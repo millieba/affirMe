@@ -56,7 +56,7 @@
 </div>
 
 {#if !isLoading && affirmations.length < totalDocuments}
-    <ShowMore bind:currentPage {itemsPerPage} bind:totalDocuments />
+    <ShowMore bind:currentPage {itemsPerPage} {totalDocuments} />
 {/if}
 
 {#if !isLoading && affirmations.length > 0 && isScrolledDown}

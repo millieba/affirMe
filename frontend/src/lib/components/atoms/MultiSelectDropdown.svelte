@@ -13,11 +13,9 @@
     });
 
     function toggleOption(option: string) {
-        if (selectedOptions.includes(option)) {
-            selectedOptions = selectedOptions.filter((item) => item !== option);
-        } else {
-            selectedOptions = [...selectedOptions, option];
-        }
+        selectedOptions = selectedOptions.includes(option)
+            ? selectedOptions.filter((item) => item !== option) // If option is selected, filter it out (unselect it).
+            : [...selectedOptions, option]; // If option is not selected, select it.
     }
 
     function toggleDropdown() {
@@ -25,13 +23,11 @@
     }
 
     function selectAllOptions() {
-        if (selectedOptions.length === options.length) {
-            selectedOptions = [];
-        } else {
-            selectedOptions = [...options];
-        }
+        selectedOptions = // If all options are already selected, unselect all options. Else, select all options.
+            selectedOptions.length === options.length ? [] : [...options];
     }
 
+    // Function for drawing the dropdown icon in the correct direction, depending on whether the dropdown is open or not.
     const DropdownIcon = ({ isOpen }: { isOpen: boolean }) => `
         <svg
             width="24"

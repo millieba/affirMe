@@ -14,6 +14,6 @@ Start the backend first in one terminal window, then start the frontend in anoth
 ### 🌞 Frontend
 1. **Install Node.js:** Download Node.js. Refer to [https://nodejs.org](https://nodejs.org) for installation instructions.
 2. **Install dependencies:** In the frontend folder, run `pnpm i` to install the project dependencies listed in *package.json*.
-3. **Start the development server:** After step 2, run `pnpm run dev`. Access the application at [http://localhost:5173](http://localhost:5173) in your web browser.
+3. **Start the development server:** After step 2, run `pnpm dev`. Access the application at [http://localhost:5173](http://localhost:5173) in your web browser.
 
 *Note:* The instructions assume the usage of *pnpm* as the package manager. If you prefer *npm*, replace *pnpm* with *npm*. To install *pnpm*, run `npm install -g pnpm` in a terminal window.

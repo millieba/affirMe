@@ -1,53 +1,26 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { fetchAllAffirmations } from "../../services/affirmationService";
     import Card from "../atoms/Card.svelte";
     import SkeletonCard from "../atoms/SkeletonCard.svelte";
     import Button from "../atoms/Button.svelte";
+    import ShowMore from "./ShowMore.svelte";
+    import type { Affirmation } from "../../services/affirmationService";
 
-    let affirmations = [];
-    let currentPage = 1;
-    let itemsPerPage = 16;
-    let totalDocuments = 0;
-    let isLoading = true;
-    let isScrolledDown = false; // To track if user has scrolled down
+    export let affirmations: Affirmation[];
+    export let currentPage: number;
+    export let itemsPerPage: number;
+    export let totalDocuments: number;
+    export let isLoading: boolean;
 
-    async function fetchAffirmations(pageNumber: number) {
-        try {
-            isLoading = true;
-
-            const startTime = Date.now();
-            const response = await fetchAllAffirmations(
-                pageNumber,
-                itemsPerPage
-            );
-            const fetchTime = Date.now() - startTime;
-
-            await (fetchTime < 300 // If the fetch time is less than 300ms, add a delay to avoid UI flickering from the skeleton cards
-                ? new Promise((resolve) => setTimeout(resolve, 300))
-                : Promise.resolve());
-
-            affirmations = affirmations.concat(response.affirmations);
-            totalDocuments = response.total_documents;
-            isLoading = false;
-        } catch (err) {
-            affirmations = [];
-            isLoading = false;
-        }
-    }
+    let isScrolledDown: boolean = false;
+    let errorMessage: string = "";
 
     onMount(() => {
-        fetchAffirmations(currentPage);
         window.addEventListener("scroll", handleScroll);
     });
 
     function handleScroll() {
         isScrolledDown = window.scrollY > 0;
-    }
-
-    function loadMoreAffirmations() {
-        currentPage++;
-        fetchAffirmations(currentPage);
     }
 
     function goToTop() {
@@ -56,13 +29,24 @@
             behavior: "smooth",
         });
     }
+
+    $: errorMessage =
+        affirmations.length === 0 && !isLoading
+            ? "Sorry, could not load affirmations. Check your internet connection and try again later."
+            : "";
 </script>
+
+{#if errorMessage}
+    <p class="text-t1 mt-10 bg-a4 p-3 rounded-lg">{errorMessage}</p>
+{/if}
 
 <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-12"
 >
     {#each affirmations as affirmation}
-        <Card affirmationText={affirmation.text} tags={affirmation.tags} />
+        {#if !errorMessage}
+            <Card affirmationText={affirmation.text} tags={affirmation.tags} />
+        {/if}
     {/each}
     {#if isLoading}
         {#each Array(itemsPerPage) as _, index}
@@ -72,12 +56,7 @@
 </div>
 
 {#if !isLoading && affirmations.length < totalDocuments}
-    <div class="flex justify-center pb-6">
-        <Button
-            buttonText="+ Load More"
-            onClick={loadMoreAffirmations}
-        />
-    </div>
+    <ShowMore bind:currentPage {itemsPerPage} {totalDocuments} />
 {/if}
 
 {#if !isLoading && affirmations.length > 0 && isScrolledDown}

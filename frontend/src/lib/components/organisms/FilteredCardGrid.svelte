@@ -19,11 +19,12 @@
   async function fetchFilteredAffirmations() {
     isLoading = true;
 
-    currentPage =
-      (currentPage !== 1 && prevSearchInput !== searchInput) ||
-      prevSelectedTags !== selectedTags
-        ? 1 // Reset currentPage only if searchInput or selectedTags changed
-        : currentPage;
+    // Set currentPage to 1 if searchInput or selectedTags changes, also update prevSearchInput and prevSelectedTags
+    if (searchInput !== prevSearchInput || selectedTags !== prevSelectedTags) {
+      currentPage = 1;
+      prevSearchInput = searchInput;
+      prevSelectedTags = selectedTags;
+    }
 
     try {
       const response = await fetchAffirmations(
@@ -33,17 +34,11 @@
         selectedTags
       );
 
-      if (
-        searchInput !== prevSearchInput ||
-        selectedTags !== prevSelectedTags
-      ) {
-        // Update prevSearchInput and prevSelectedTags only if searchInput or selectedTags changed
-        prevSearchInput = searchInput;
-        prevSelectedTags = selectedTags;
-        affirmations = response.affirmations; // Replace affirmations only if searchInput or selectedTags changed
-      } else {
-        affirmations = [...affirmations, ...response.affirmations]; // Add new affirmations to existing ones if searchInput or selectedTags did not change
-      }
+      affirmations =
+        // currentPage is only 1 if searchInput or selectedTags changes, if we have no more affirmations to load, or if the page just loaded
+        currentPage === 1
+          ? response.affirmations // If currentPage is 1, we want to replace the affirmations to avoid duplicates
+          : [...affirmations, ...response.affirmations]; // If currentPage is not 1, we want to append the affirmations to the existing ones
 
       totalDocuments = response.total_documents;
     } catch (err) {
